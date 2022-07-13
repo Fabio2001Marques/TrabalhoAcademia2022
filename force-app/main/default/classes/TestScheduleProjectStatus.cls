@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Fábio Marques
  * @group             : 
- * @last modified on  : 11-07-2022
+ * @last modified on  : 13-07-2022
  * @last modified by  : Fábio Marques
 **/
 @isTest
@@ -29,7 +29,7 @@ public class TestScheduleProjectStatus {
                 if(m.Warship__c == w.Id){
                     if(m.Status__c == 'Behind Schedule') count = count+1;
                 }
-            }
+            } 
             if(count > 1){
                 System.assertEquals('Red', w.Project_Status__c, 'Devia ter passado a RED');
             }else if (count == 1){

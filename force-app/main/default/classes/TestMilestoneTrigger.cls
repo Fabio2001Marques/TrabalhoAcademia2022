@@ -41,7 +41,6 @@ public class TestMilestoneTrigger {
         } catch (Exception e ) {
             Boolean expectedExceptionThrown =  e.getMessage().contains('A "Completed" Milestone cannot be created!!!') ? true : false;
             if (expectedExceptionThrown == false) {
-                System.debug('1');
                 expectedExceptionThrown =  e.getMessage().contains('A "Behind Schedule" Milestone cannot be created!!!') ? true : false;
             }
             System.AssertEquals(expectedExceptionThrown, true);
