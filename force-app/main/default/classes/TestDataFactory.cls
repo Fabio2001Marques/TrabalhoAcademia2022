@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Fábio Marques
  * @group             : 
- * @last modified on  : 11-07-2022
+ * @last modified on  : 13-07-2022
  * @last modified by  : Fábio Marques
 **/
 public class TestDataFactory {
@@ -124,16 +124,16 @@ public class TestDataFactory {
 
     public static void createMilestones(Integer nMilestones){
         List<Warship__c> warships = createWarship(1);
-        insert warships;
+        insert warships;  
 
         List<Milestone__c> milestones = new List<Milestone__c>();
 
         for (Integer i = 0; i < nMilestones; i++) {
             Milestone__c ms = new Milestone__c();
             ms.Name = 'Teste 1'+i;
-            ms.Warship__c = warships[0].Id; 
+            ms.Warship__c = warships[0].Id;
             ms.Status__c = 'On Track';
-            ms.Due_Date__c = System.today().addDays(i-1);
+            ms.Due_Date__c = System.today().addDays(i);
             milestones.add(ms);
         }
 
