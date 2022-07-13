@@ -2,7 +2,7 @@
  * @description       : 
  * @author            : Fábio Marques
  * @group             : 
- * @last modified on  : 12-07-2022
+ * @last modified on  : 13-07-2022
  * @last modified by  : Fábio Marques
 **/
 public class WarSupUtility {
@@ -12,8 +12,20 @@ public class WarSupUtility {
         List<Id> suppliesIdList = new List<Id>();
         Id warshipId = newWarSupplies[0].Ship_supply__c;
         
+        
         for(Warship_Supply__c newWarSup : newWarSupplies){           
             suppliesIdList.add(newWarSup.Supply__c);
+        }
+
+        List<Supply__c> suppliesList = [SELECT Id, Name FROM Supply__c Where Id in (Select Supply__c from Warship_Supply__c where Ship_supply__c = :warshipId)];
+        
+        
+        for (Supply__c s : suppliesList) {
+            for (Id ids : suppliesIdList) {
+                if(ids == s.Id){
+                    newWarSupplies[0].addError('This suplly already exists in this Warship.' );
+                }
+            }
         }
 
         List<Supply__c> supply = [SELECT Id, Name, Quantity__c FROM Supply__c Where Id in :suppliesIdList];
@@ -28,23 +40,14 @@ public class WarSupUtility {
                     }else if(newWarSup.Quantity__c<=0){
                         newWarSup.addError('Quantity must be greater than zero' );
                     }else{
-                        newWarSup.addError('There are only '+supplies.Quantity__c+' units of '+ supplies.Name);
+                        newWarSup.addError('There are not enough supplies.');
                     }   
                 }       
             }
-        }
-        update supply;
-        
-        
-        List<Supply__c> supplies = [SELECT Id, Name FROM Supply__c Where Id in (Select Supply__c from Warship_Supply__c where Ship_supply__c = :warshipId)];
-        
-        for (Supply__c s : supplies) {
-            for (Id id : suppliesIdList) {
-                if(id == s.Id){
-                    newWarSupplies[0].addError('This suplly already exists in this Warship.' );
-                }
-            }
-        }
+        }        
+   
+        update supply; 
+
         }
 
         public static void updateSupplies(List<Warship_Supply__c> oldWarSupplies, List<Warship_Supply__c> newWarSupplies){
