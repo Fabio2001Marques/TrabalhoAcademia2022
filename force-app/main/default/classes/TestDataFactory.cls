@@ -30,30 +30,12 @@ public class TestDataFactory {
         for (Integer i = 0; i < nSupplies; i++) {
             Supply__c s = new Supply__c();
             s.Name = 'Teste '+i;
-            s.Quantity__c = i;
-            s.Unit_Cost__c = i;
-            supplies.add(s);
-        }
-        return supplies;
-    }
-
-    public static void insertSupplies(Integer nSupplies){
-        List<Supply__c> supplies = new List<Supply__c>();
-
-        for (Integer i = 0; i < nSupplies; i++) {
-            Supply__c s = new Supply__c();
-            if (math.mod(i,2) == 0) {
-                s.Name = 'Teste'+i;
-            }else{
-                s.Name = 'Teste';
-            }
-            s.Quantity__c = i+1;
+            s.Quantity__c = i+10;
             s.Unit_Cost__c = i+1;
             supplies.add(s);
         }
-        insert supplies;
+        return supplies; 
     }
-
 
     public static List<Warship__c> createWarship(Integer nWarships){
         List<Warship__c> warships = new List<Warship__c>();
@@ -74,6 +56,8 @@ public class TestDataFactory {
         List<Warship_Supply__c> warshipSuplly = new List<Warship_Supply__c>();
         List<Supply__c> supplies = createSupplies(10);
         List<Warship__c> warships = createWarship(1);
+        insert supplies;
+        insert warships;
         for (Integer i = 0; i < newWarSup; i++) {
             Warship_Supply__c warSup = new Warship_Supply__c();
             warSup.Ship_supply__c = warships[0].Id;
@@ -89,7 +73,7 @@ public class TestDataFactory {
         insert warships;
         
         List<Milestone__c> milestones = new List<Milestone__c>();
-
+ 
         for (Integer i = 0; i < 5; i++) {
             Milestone__c ms = new Milestone__c();
             ms.Name = 'Teste 1'+i;
