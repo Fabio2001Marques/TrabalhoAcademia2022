@@ -66,7 +66,29 @@ public class TestWarSupTrigger {
             Boolean expectedExceptionThrown =  e.getMessage().contains('This suplly already exists in this Warship.') ? true : false;
             System.AssertEquals(expectedExceptionThrown, true);
         }
-
     }
+
+    @isTest
+    static void updateWarSupTriggerTest(){
+
+        List<Supply__c> supplies = [Select id, Name, Quantity__c From Supply__c];
+        List<Warship__c> warships = [Select id, Name From Warship__c];
+        List<Warship_Supply__c> warshipSupply = [Select id, Ship_supply__c, Supply__c From Warship_Supply__c];
+
+        warshipSupply[0].Quantity__c = 1000;
+        warshipSupply[1].Quantity__c = 0;    
+
+        try {
+            update warshipSupply;
+            
+        } catch (Exception e ) {
+            Boolean expectedExceptionThrown =  e.getMessage().contains('Quantity must be greater than zero') ? true : false;
+            if (expectedExceptionThrown == false) {
+                expectedExceptionThrown =  e.getMessage().contains('There are not enough supplies.') ? true : false;
+            }
+            System.AssertEquals(expectedExceptionThrown, true);
+        }
+    }
+
 
 }

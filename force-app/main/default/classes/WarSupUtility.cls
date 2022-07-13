@@ -77,7 +77,7 @@ public class WarSupUtility {
                         }else if(newWarSup.Quantity__c<=0){
                             newWarSup.addError('Quantity must be greater than zero' );
                         }else{
-                            newWarSup.addError('There are only '+supplies.Quantity__c+' units of '+ supplies.Name);
+                            newWarSup.addError('There are not enough supplies.');
                         }   
                     }       
                 }
