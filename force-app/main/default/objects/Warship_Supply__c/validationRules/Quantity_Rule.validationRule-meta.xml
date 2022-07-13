@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Quantity_Rule</fullName>
+    <active>true</active>
+    <errorConditionFormula>OR( Quantity__c &lt;= 0,
+     Quantity__c &gt;  Supply__r.Quantity__c 
+)</errorConditionFormula>
+    <errorDisplayField>Quantity__c</errorDisplayField>
+    <errorMessage>Quantity must be greater than zero and lower or equal to Stock</errorMessage>
+</ValidationRule>
